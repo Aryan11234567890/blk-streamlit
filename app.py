@@ -197,7 +197,7 @@ client = Groq()
 conversation_history = []
 
 def generate_content(p):
-    prompt = p + ' Also give follow up questions at the end of your answer.'
+    prompt = p + """ Also give follow up questions at the end of your answer."""
     global conversation_history
     conversation_history.append({'role': 'user', 'content': prompt})
     res = client.chat.completions.create(
@@ -289,34 +289,8 @@ def main_app():
 ਪੰਜਾਬੀ, বাংলা, français and many more....""")
     news_api_key = '043464d1958c4c1bb474eecbb8093e67'  
     articles = get_finance_news(news_api_key)
-
-    # Chatbot section
-    if 'chat_history' not in st.session_state:
-        st.session_state.chat_history = []
-
-    if 'show_chatbot' not in st.session_state:
-        st.session_state.show_chatbot = False
-
-    # Button to toggle chatbot visibility
-    if st.button("Financially Confused? Ask Me!", key='chat_button'):
-        st.session_state.show_chatbot = not st.session_state.show_chatbot
-
-    # Display chatbot in a popup-like expander
-    if st.session_state.show_chatbot:
-        with st.expander("Chat with NeeLlama", expanded=True):
-            st.write("## NeeLlama")
-            user_input = st.text_input("You: ", key="chat_input")
-
-            if user_input:
-                response = generate_content(user_input)
-                st.session_state.chat_history.append({"user": user_input, "bot": response})
-                user_input = ""
-
-            # Display chat history
-            for chat in reversed(st.session_state.chat_history):
-                st.markdown(f"You: {chat['user']}")
-                st.markdown(f"NeeLlama: {chat['bot']}")
-                st.write('----')
+    st.subheader('Scroll Down for Accessing NeeLlama!')
+    
 
     # Display finance news articles as cards with consistent size and spacing
     st.subheader("Finance News Articles")
@@ -352,6 +326,33 @@ def main_app():
                     <a href="{article['url']}" style="display: inline-block; padding: 8px 12px; margin-top: auto; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; text-align: center;" target="_self">Read more</a>
                 </div>
                 """, unsafe_allow_html=True)
+    # Chatbot section
+    if 'chat_history' not in st.session_state:
+        st.session_state.chat_history = []
+
+    if 'show_chatbot' not in st.session_state:
+        st.session_state.show_chatbot = False
+
+    # Button to toggle chatbot visibility
+    if st.button("Financially Confused? Ask Me!", key='chat_button'):
+        st.session_state.show_chatbot = not st.session_state.show_chatbot
+
+    # Display chatbot in a popup-like expander
+    if st.session_state.show_chatbot:
+        with st.expander("Chat with NeeLlama", expanded=True):
+            st.write("## NeeLlama")
+            user_input = st.text_input("You: ", key="chat_input")
+
+            if user_input:
+                response = generate_content(user_input)
+                st.session_state.chat_history.append({"user": user_input, "bot": response})
+                user_input = ""
+
+            # Display chat history
+            for chat in reversed(st.session_state.chat_history):
+                st.markdown(f"You: {chat['user']}")
+                st.markdown(f"NeeLlama: {chat['bot']}")
+                st.write('----')
     st.write('')
     st.write('')
     st.write('')
