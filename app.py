@@ -298,7 +298,7 @@ def main_app():
         st.session_state.show_chatbot = False
 
     # Button to toggle chatbot visibility
-    if st.button("Ask Me!", key='chat_button'):
+    if st.button("Financially Confused? Ask Me!", key='chat_button'):
         st.session_state.show_chatbot = not st.session_state.show_chatbot
 
     # Display chatbot in a popup-like expander
