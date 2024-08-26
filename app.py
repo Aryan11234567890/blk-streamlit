@@ -5,7 +5,7 @@ from groq import Groq
 from bs4 import BeautifulSoup
 
 # Set up Groq API key
-os.environ['GROQ_API_KEY'] = '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'
+os.environ['GROQ_API_KEY'] = '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'
 
 # Initialize Groq client
 client = Groq()
